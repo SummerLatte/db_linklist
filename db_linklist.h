@@ -17,6 +17,12 @@
 #
 #Copyright (c) 2013  sim szm <xianszm007@gmail.com>
 */
+
+/*
+#This is the head file of the db_linklist.It include the dependent head file,
+#define the struct of the list and the node,and declare functions. 
+#这是链表的头文件。它包含了所依赖的头文件，定义里表和节点的结构体，声明所实现的函数
+*/
 #ifndef DB_LINKLIST_H
 #define DB_LINKLIST_H
 
@@ -26,15 +32,19 @@
 
 extern int errno;
 
+//struct of node
+//数据的结构体
 typedef struct db_lnode{
-	void* data;
-	struct db_lnode* prev;
+	void* data;                   //a void pointer to data  指向数据的空指针
+	struct db_lnode* prev;   	  //a struct pointer to previous node  指向前一个结点的结构体指针
 	struct db_lnode* next;
 }db_lnode_t;
 
+//struct of list
+//表的结构体
 typedef struct db_list{
-	int limit_size;
-	db_lnode_t* head;
+	int limit_size;               //describe the max size of the list  描述这个表的最大值 
+	db_lnode_t* head;             //a struct pointer to the head of the list 指向一个表头的结构体指针
 	db_lnode_t* tail;
 }db_list_t;
 
