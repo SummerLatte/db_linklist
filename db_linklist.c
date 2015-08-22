@@ -21,25 +21,32 @@
  */
 
 #include "db_linklist.h"
-
+/*
+typedef struct db_list{
+	int limit_size;       -------------------->     0         
+	db_lnode_t* head;     -------------------->     typedef struct db_lnode{
+	db_lnode_t* tail;     ---------|                void* data;       ----------------------->      NULL
+}db_list_t;                                         struct db_lnode* prev;       ------------>      NULL
+                                                    struct db_lnode* next;       ------------>      NULL
+*/
 db_list_t* db_list_create(void ){
-	db_list_t* list_head;
-	list_head=(db_list_t* )malloc(sizeof(db_list_t));
-	if(list_head==NULL){
-	      errno=ENOMEM;
-	      return NULL;
+	db_list_t* list_head;                                         //declare srtuct of list_head
+	list_head=(db_list_t* )malloc(sizeof(db_list_t));             //malloc memory for list_head
+	if(list_head==NULL){                                          //judge wheather malloc is success 
+	      errno=ENOMEM;                                           //if malloc failed,errno is ENOMEM
+	      return NULL;                                            
 	}
-	list_head->size=0;
-	list_head->head=(db_lnode_t* )malloc(sizeof(db_lnode_t));
-	if(list_head->head==NULL){
-		free(list_head);
+	list_head->size=0;                                           //if malloc is success,let size element be 0
+	list_head->head=(db_lnode_t* )malloc(sizeof(db_lnode_t));    //malloc memory point to list_head
+	if(list_head->head==NULL){                                   //judge wheather malloc is success
+		free(list_head);                                         //if malloc failed,free mem of list_head which is malloced before 
 		errno=ENOMEM;
 		return NULL;
 	}
-	list_head->head->next=list_head->head->prev=NULL;
-	list_head->head->data=NULL;
-	list_head->tail=list_head->head;
-	return list_head;
+	list_head->head->next=list_head->head->prev=NULL;            //let lnode next element and prev element point to null
+	list_head->head->data=NULL;                                  //let lnode data element point to null
+	list_head->tail=list_head->head;                             //let list_head tail element point to list_head head element
+	return list_head;                         
 }
 static inline int __db_list_insert_before(db_list_t** list_head, int num, void* new_node_data){
 	int counter=1;
